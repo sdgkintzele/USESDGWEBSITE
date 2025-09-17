@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2B2F33" />
+    <title>Salient Defense Group — Operations</title>
+
+    <!-- PWA / icons -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+
+    <!-- Brand fonts: Inter (UI) + League Spartan (Headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=League+Spartan:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Apply saved/system theme ASAP -->
+    <script>
+      (function () {
+        try {
+          const saved = localStorage.getItem("theme");
+          const prefers = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+          ).matches;
+          if (saved === "dark" || (!saved && prefers)) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch {}
+      })();
+    </script>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          container: { center: true, padding: { DEFAULT: "1rem", lg: "2rem" } },
+          extend: {
+            colors: {
+              sdg: {
+                charcoal: "#2B2F33",
+                dark: "#3A4147",
+                slate: "#6B7280",
+                bronze: "#B4835B",
+                sand: "#D0A777",
+                paper: "#F7F7F5",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              heading: [
+                '"League Spartan"',
+                "Inter",
+                "ui-sans-serif",
+                "system-ui",
+                "sans-serif",
+              ],
+            },
+            backgroundImage: {
+              "sdg-gold": "linear-gradient(90deg, #B4835B 0%, #D0A777 100%)",
+            },
+            boxShadow: {
+              soft: "0 2px 12px rgba(0,0,0,0.06)",
+            },
+            borderRadius: { "2xl": "1rem" },
+          },
+        },
+        plugins: [],
+      };
+    </script>
+
+    <!-- Our Tailwind layers (base + components) inline for CDN mode -->
+    <style type="text/tailwindcss">
+      @layer base {
+        html {
+          @apply h-full;
+        }
+        body {
+          @apply min-h-screen bg-sdg-paper text-sdg-charcoal font-sans antialiased;
+        }
+        .dark body {
+          @apply bg-[#0f1215] text-gray-100;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          @apply font-heading tracking-tight;
+        }
+        ::selection {
+          @apply bg-sdg-sand/40 text-sdg-charcoal;
+        }
+      }
+
+      @layer components {
+        .card {
+          @apply bg-white rounded-2xl shadow-soft border border-sdg-dark/10 dark:bg-slate-900/60 dark:border-white/10;
+        }
+        .btn {
+          @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition focus:outline-none
+                       focus-visible:ring-2 focus-visible:ring-sdg-dark/30 focus-visible:ring-offset-2 ring-offset-sdg-paper
+                       disabled:opacity-50 disabled:pointer-events-none dark:ring-offset-transparent;
+        }
+        .btn-primary {
+          @apply bg-sdg-charcoal text-white hover:bg-sdg-dark dark:bg-white/90 dark:text-slate-900 dark:hover:bg-white;
+        }
+        .btn-ghost {
+          @apply bg-white text-sdg-charcoal border border-sdg-dark/10 hover:bg-sdg-paper
+                             dark:bg-transparent dark:text-gray-200 dark:border-white/10 dark:hover:bg-white/5;
+        }
+
+        .sidebar-link {
+          @apply block rounded-xl px-3 py-2 text-sm font-medium text-sdg-charcoal/80 hover:text-sdg-charcoal hover:bg-white/60
+                               dark:text-gray-300 dark:hover:bg-white/5;
+        }
+        .sidebar-link-active {
+          @apply bg-white text-sdg-charcoal shadow-soft border border-sdg-dark/10 dark:bg-white/10 dark:text-white dark:border-white/10;
+        }
+
+        .frame {
+          @apply rounded-2xl border border-sdg-dark/20 dark:border-white/15 bg-white dark:bg-[#0f1316] shadow-soft;
+        }
+        .frame-accent {
+          @apply h-1.5 w-full bg-sdg-gold rounded-t-2xl;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen bg-sdg-paper text-sdg-charcoal dark:bg-[#0f1215] dark:text-gray-100"
+  >
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

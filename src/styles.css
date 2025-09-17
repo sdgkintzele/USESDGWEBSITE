@@ -1,0 +1,312 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   LIGHTER, PROFESSIONAL DARK — neutral gray (brand-friendly)
+   ========================================================= */
+html.dark {
+  /* Lighter grays, softer borders */
+  --sdg-bg: #2d333d; /* page background */
+  --sdg-surface: #343b47; /* card/header surface */
+  --sdg-surface-2: #3c4452; /* inputs/secondary surface */
+  --sdg-text: #f3f6fa; /* primary text */
+  --sdg-muted: #c0c7d2; /* secondary text */
+  --sdg-border: rgba(255, 255, 255, 0.16);
+  --sdg-hairline: rgba(255, 255, 255, 0.1);
+  --sdg-header-glass: rgba(255, 255, 255, 0.06);
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+@layer base {
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply min-h-screen bg-sdg-paper text-sdg-charcoal font-sans antialiased;
+    /* LIGHT: tasteful depth */
+    background-image: radial-gradient(
+        1200px 600px at 65% -15%,
+        rgba(203, 163, 92, 0.08),
+        transparent 60%
+      ),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0));
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    @apply text-gray-100;
+    background-color: var(--sdg-bg);
+    color: var(--sdg-text);
+    /* DARK: lighter gray with subtle gold glow */
+    background-image: radial-gradient(
+        1200px 600px at 65% -15%,
+        rgba(239, 202, 116, 0.1),
+        transparent 60%
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+    background-attachment: fixed;
+  }
+
+  /* Headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading tracking-tight;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-sdg-sand/40 text-sdg-charcoal;
+  }
+
+  /* ---- Full-bleed app header rail (spans entire viewport) ---- */
+  .app-rail {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    /* optional: keep the header visible on scroll */
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    /* backgrounds for readability */
+    backdrop-filter: saturate(115%) contrast(98%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    );
+  }
+  .dark .app-rail {
+    background: linear-gradient(
+      180deg,
+      var(--sdg-header-glass) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+  .app-rail--goldline {
+    border-bottom: 3px solid rgba(212, 175, 55, 0.45); /* gold underline */
+  }
+
+  /* If you still want a rounded "boxed" header elsewhere, use .site-header instead of header */
+  .site-header {
+    border-radius: 18px;
+    padding: 1rem 1.25rem;
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(255, 255, 255, 0.45) 100%
+    );
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 20px rgba(20, 24, 33, 0.03),
+      0 2px 6px rgba(20, 24, 33, 0.05);
+  }
+  .dark .site-header {
+    background-color: var(--sdg-surface);
+    background-image: linear-gradient(
+      180deg,
+      var(--sdg-header-glass) 0%,
+      transparent 100%
+    );
+    border: 1px solid var(--sdg-hairline);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18), 0 4px 8px rgba(0, 0, 0, 0.12);
+    backdrop-filter: saturate(115%) contrast(98%);
+  }
+
+  /* Muted utility in dark */
+  html.dark .text-sdg-slate {
+    color: var(--sdg-muted);
+  }
+
+  /* -------- Form controls (clear & consistent) -------- */
+  label,
+  .form-label {
+    @apply text-sm font-medium text-sdg-charcoal dark:text-gray-100;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="time"],
+  input[type="search"],
+  textarea,
+  .form-input,
+  .form-textarea {
+    @apply w-full rounded-xl border border-sdg-dark/20 bg-white px-3 py-2 text-sm
+           placeholder:text-sdg-slate/70 shadow-sm
+           focus:border-sdg-dark/30 focus:ring-2 focus:ring-sdg-dark/25 outline-none;
+    background-color: white;
+  }
+  .dark input[type="text"],
+  .dark input[type="email"],
+  .dark input[type="password"],
+  .dark input[type="number"],
+  .dark input[type="datetime-local"],
+  .dark input[type="date"],
+  .dark input[type="time"],
+  .dark input[type="search"],
+  .dark textarea,
+  .dark .form-input,
+  .dark .form-textarea {
+    background-color: var(--sdg-surface-2);
+    border-color: var(--sdg-border);
+    color: var(--sdg-text);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+  textarea {
+    @apply min-h-[8rem];
+  }
+
+  select,
+  .form-select {
+    @apply w-full rounded-xl border border-sdg-dark/20 bg-white px-3 py-2 text-sm shadow-sm
+           focus:border-sdg-dark/30 focus:ring-2 focus:ring-sdg-dark/25 outline-none;
+    background-color: white;
+  }
+  .dark select,
+  .dark .form-select {
+    background-color: var(--sdg-surface-2);
+    border-color: var(--sdg-border);
+    color: var(--sdg-text);
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    @apply h-4 w-4 rounded border-sdg-dark/30 text-sdg-charcoal
+           focus:ring-2 focus:ring-sdg-dark/25;
+    background-color: white;
+  }
+  .dark input[type="checkbox"],
+  .dark input[type="radio"] {
+    background-color: var(--sdg-surface-2);
+    border-color: var(--sdg-hairline);
+    @apply text-white;
+  }
+
+  input[type="file"] {
+    @apply block w-full text-sm text-sdg-charcoal file:mr-3 file:rounded-lg
+           file:border-0 file:bg-sdg-charcoal file:px-3 file:py-2 file:text-white
+           hover:file:bg-sdg-dark;
+    @apply dark:text-gray-100 dark:file:bg-white/90 dark:file:text-slate-900 dark:hover:file:bg-white;
+  }
+
+  a {
+    @apply underline decoration-sdg-sand/50 underline-offset-2 hover:decoration-sdg-sand;
+  }
+}
+
+/* =========================================================
+   COMPONENTS
+   ========================================================= */
+@layer components {
+  /* ---------- Tabs for the full-bleed header ---------- */
+  .tab-link {
+    @apply inline-flex items-center font-semibold rounded-lg px-2.5 py-1.5;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+  }
+  .tab-link--active {
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 -2px 0 rgba(212, 175, 55, 0.9);
+  }
+  .dark .tab-link--active {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  /* ---------- Premium Card/Frame ---------- */
+  .frame {
+    @apply rounded-2xl border bg-white;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 24px 36px rgba(20, 24, 33, 0.06),
+      0 8px 14px rgba(20, 24, 33, 0.06), 0 2px 4px rgba(20, 24, 33, 0.08);
+  }
+  .dark .frame {
+    background-color: var(--sdg-surface);
+    border-color: var(--sdg-border);
+    box-shadow: 0 28px 40px rgba(0, 0, 0, 0.22), 0 10px 18px rgba(0, 0, 0, 0.18),
+      0 2px 6px rgba(0, 0, 0, 0.22);
+    backdrop-filter: saturate(115%) contrast(98%);
+  }
+
+  .frame-accent {
+    background: linear-gradient(
+      90deg,
+      #caa660 0%,
+      #e6c57a 35%,
+      #f1d693 65%,
+      #caa660 100%
+    );
+    @apply h-1.5 w-full rounded-t-2xl;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium
+           transition focus:outline-none
+           focus-visible:ring-2 focus-visible:ring-sdg-dark/30 focus-visible:ring-offset-2
+           ring-offset-sdg-paper disabled:opacity-50 disabled:pointer-events-none;
+    @apply dark:ring-offset-transparent;
+  }
+  .btn-primary {
+    @apply bg-sdg-charcoal text-white hover:bg-sdg-dark;
+    @apply dark:bg-white/90 dark:text-slate-900 dark:hover:bg-white;
+    box-shadow: 0 6px 16px rgba(20, 24, 33, 0.08);
+  }
+  .btn-ghost {
+    @apply bg-white text-sdg-charcoal border border-sdg-dark/10 hover:bg-sdg-paper;
+    background-color: white;
+  }
+  .dark .btn-ghost {
+    color: var(--sdg-text);
+    background-color: transparent;
+    border-color: var(--sdg-hairline);
+  }
+  .dark .btn-ghost:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-gold {
+    @apply text-white bg-sdg-gold;
+  }
+
+  /* ---------- Sidebar / Toolbar links ---------- */
+  .sidebar-link {
+    @apply block rounded-xl px-3 py-2 text-sm font-medium text-sdg-charcoal/80 hover:text-sdg-charcoal hover:bg-white/60;
+  }
+  .dark .sidebar-link {
+    color: var(--sdg-text);
+  }
+  .dark .sidebar-link:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .sidebar-link-active {
+    @apply bg-white text-sdg-charcoal shadow border;
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+  .dark .sidebar-link-active {
+    color: var(--sdg-text);
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: var(--sdg-border);
+  }
+
+  /* ---------- Utility for list dividers ---------- */
+  .hairline {
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+  .dark .hairline {
+    border-color: var(--sdg-hairline);
+  }
+}
